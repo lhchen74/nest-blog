@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
+import { PostModel } from './post.module';
 
 
 class CreatePostDto {
@@ -15,20 +16,15 @@ class CreatePostDto {
 export class PostsController {
     @ApiOperation({title: '帖子列表'})
     @Get()
-    index() {
-        return [
-            {id: 1},
-            {id: 1},
-            {id: 1},
-            {id: 1}
-        ]
+    async index() {
+        return PostModel.find()
     }
 
 
     @Post() 
     @ApiOperation({title: '创建帖子'})
-    create(@Body() body: CreatePostDto) {
-
+    async create(@Body() body: CreatePostDto) {
+        PostModel.insertMany(body)
         return body
     }
 

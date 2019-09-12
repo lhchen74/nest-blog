@@ -3,8 +3,16 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 
+import * as mongoose from 'mongoose'
+
 
 async function bootstrap() {
+  mongoose.connect('mongodb://localhost/nest-blog-api', {
+    useNewUrlParser: true,
+    useFindAndModify: true,
+    useCreateIndex: true
+  })
+
   const app = await NestFactory.create(AppModule);
 
   const options = new DocumentBuilder()
