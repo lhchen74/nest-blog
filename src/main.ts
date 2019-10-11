@@ -3,17 +3,21 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 
-import * as mongoose from 'mongoose'
+// import * as mongoose from 'mongoose'
+import { ValidationPipe } from '@nestjs/common';
 
 
 async function bootstrap() {
-  mongoose.connect('mongodb://localhost/nest-blog-api', {
-    useNewUrlParser: true,
-    useFindAndModify: true,
-    useCreateIndex: true
-  })
+  // mongoose.connect('mongodb://localhost/nest-blog-api', {
+  //   useNewUrlParser: true,
+  //   useFindAndModify: true,
+  //   useCreateIndex: true,
+  //   useUnifiedTopology: true
+  // })
 
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(new ValidationPipe())
 
   const options = new DocumentBuilder()
     .setTitle('NestJs blog API')
